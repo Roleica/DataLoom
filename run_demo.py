@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CLI entry: run the six-stage demo pipeline (no third-party deps)."""
+"""DataLoom CLI: run the six-stage demo pipeline (no third-party deps)."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from framework.pipeline import ResearchPipeline  # noqa: E402
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Research automation framework demo (mock stages).")
+    p = argparse.ArgumentParser(description="DataLoom: six-stage research pipeline demo (mock stages).")
     p.add_argument("--topic", default="中国经济发展对中国工业外贸发展的影响研究", help="研究主题")
     p.add_argument("--auto", action="store_true", help="标记为自动确认（影响占位 PRD 状态字段）")
     p.add_argument("--run-id", default=None, help="固定 run 目录名（默认 UTC 时间戳）")

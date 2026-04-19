@@ -1,4 +1,4 @@
-# 第一次把本项目上传到 GitHub（图文式步骤）
+# 第一次把 DataLoom 上传到 GitHub（图文式步骤）
 
 你已经有 GitHub 账号即可，不需要先安装额外软件（用网页 + 终端即可）。若本机还没有安装 **Git**，请先安装：[https://git-scm.com/downloads](https://git-scm.com/downloads)
 
@@ -7,12 +7,12 @@
 ## 第一步：在 GitHub 网站上新建空仓库
 
 1. 打开 [https://github.com/new](https://github.com/new) 并登录。  
-2. **Repository name** 填一个英文名，例如：`research-automation-demo`（不要用中文名，避免部分工具兼容问题）。  
+2. **Repository name** 建议填 **`dataloom`**（或与 README 标题一致的英文名；不要用中文仓库名，避免部分工具兼容问题）。  
 3. 选 **Public**。  
 4. **不要**勾选 “Add a README / Add .gitignore / Choose a license”（本仓库里已经准备好了这些文件）。  
 5. 点 **Create repository**。  
 6. 创建完成后，页面会显示仓库地址，请复制 **HTTPS** 地址，形如：  
-   `https://github.com/你的用户名/research-automation-demo.git`
+   `https://github.com/你的用户名/dataloom.git`
 
 ---
 
@@ -23,9 +23,9 @@
 打开终端（Terminal），执行下面命令（把 URL 换成你刚复制的地址）：
 
 ```bash
-cd "/Users/heyuanjing/Downloads/百度同步/数据分析自动化项目"
+cd "/Users/heyuanjing/Downloads/百度同步/数据分析自动化项目"   # 本机若已改名为 DataLoom，请改路径
 
-git remote add origin https://github.com/你的用户名/research-automation-demo.git
+git remote add origin https://github.com/你的用户名/dataloom.git
 git branch -M main
 git push -u origin main
 ```
