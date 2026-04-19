@@ -1,79 +1,50 @@
-# DataLoom Agent 🧶
+# DataLoom
 
-> **Weaving Data into Insights.**（将数据交织成洞察）
+**Weaving data into insights** — a multi-agent style **research pipeline** for macro and quantitative workflows: requirements → retrieval → analysis plan → (sandboxed) execution → drafting → packaged delivery.
 
-**DataLoom Agent** 是一个面向**宏观与量化研究**的多智能体（Multi-Agent）自动化系统。它通过自然语言交互，串联从需求解析、深度检索、数据分析代码在沙盒中的执行，到长文本研报工程化排版的全工作流。
+This repository is a **runnable skeleton**: six stages, stable artifact layout, optional ZIP bundle. It does **not** call LLMs or execute generated code by default (safe defaults for experiments and demos).
 
-无论面对宏观经济指标还是跨领域的产业数据，DataLoom 都力求在海量、看似无序的散点数据中，用量化手段挖掘并验证深层关联，并输出具备学术严谨性目标的研报与过程资产。
+## Features
 
----
+- **Requirements capture** — structured PRD-style outputs (pluggable LLM / UI).
+- **Tiered data acquisition** — API-first (e.g. AkShare, FRED), uploads second, crawling last with explicit risk notes.
+- **Sandbox execution** — hook for isolated Python runs, charts, and auditable tables.
+- **Interpretation & layout** — chapter drafting and export hooks (e.g. Word/PDF) left for integration.
 
-## 核心特性（Core Features）
-
-- **智能需求捕获**：多轮对话收敛为结构化的《数据分析需求文档》（PRD）。
-- **梯队式数据采集**：优先路由至内置合规 API（如 AkShare、FRED），支持本地上传，必要时以爬虫作为兜底并提示风险。
-- **自动化沙盒执行**：动态生成 Python 分析与计量脚本，在**隔离环境**中执行，产出图表与可复核的数据结论。
-- **深度释义与排版**：对数据结果做二次检索与解释，按章节撰写，并导出工程化排版的多格式报告（如 Word / PDF）。
-
----
-
-## 本仓库当前形态（Framework Demo）
-
-本目录是 **DataLoom** 的**可运行流水线骨架**：六阶段串行、统一产物目录与 ZIP 打包；**默认不接大模型、不执行任意生成代码**（便于安全实验与上云展示）。
-
-详细需求说明见中文文档 [`核心需求v1.md`](./核心需求v1.md)。**首次将本项目上传到 GitHub** 见 [`首次上传GitHub指南.md`](./首次上传GitHub指南.md)。
-
-### 能力边界（愿景 vs 本 demo）
-
-| 模块 | 对话式 Agent 可协助 | 产品化需要 |
-|------|---------------------|------------|
-| 多轮澄清 + PRD | 起草与改写 | 持久化、审批 UI、版本管理 |
-| 深度检索 + 资料落盘 | 接入检索 API 后迭代 | 版权、去重、存储与引用规范 |
-| 内置 API 推荐 | 示例与适配代码 | 版本锁定、重试、合规说明 |
-| 自动生成并执行代码 | 本地迭代脚本 | **沙箱**、超时、网络与白名单 |
-| 长文 + 二次检索 + 排版 | 分块生成与模板 | RAG、人工抽检、固定样式模板 |
-
-结论：上表右侧是 DataLoom 走向生产时要补齐的工程能力；本仓库先把**阶段边界与产物路径**固定下来，便于逐步替换各阶段为真实实现。
-
----
-
-## 快速运行
+## Quick start
 
 ```bash
-cd /path/to/DataLoom   # 即本仓库根目录（含 run_demo.py）
-python3 run_demo.py --topic "你的研究主题"
-# 固定一次实验目录名：
+git clone https://github.com/Roleica/DataLoom.git
+cd DataLoom
+python3 run_demo.py --topic "Your research topic"
+# Optional fixed run folder:
 python3 run_demo.py --topic "demo" --run-id demo-run-1 --auto
 ```
 
-产物位于 `runs/<run_id>/`（含 JSON/Markdown 占位、`references/`、`code/`、`draft/`、`*_bundle.zip`）。该目录已列入 `.gitignore`，避免把本地实验推上 Git。
+Artifacts are written under `runs/<run_id>/` (ignored by git).
 
----
-
-## 目录结构
+## Layout
 
 ```
 .
-├── README.md
-├── 核心需求v1.md
-├── 首次上传GitHub指南.md
 ├── LICENSE
-├── requirements.txt      # 无强制依赖；可选库见文件内注释
+├── README.md
+├── requirements.txt
 ├── run_demo.py
 └── framework/
-    ├── context.py        # RunContext：单次运行的根目录与写文件
-    ├── pipeline.py       # 六阶段编排
-    └── stages/           # 各阶段占位，可替换为 LLM / 工具 / 沙箱调用
+    ├── context.py
+    ├── pipeline.py
+    └── stages/
 ```
 
-### 产品化建议（下一步）
+Replace each `framework/stages/*.py` `run()` with your LLM, retrieval, and sandbox integrations.
 
-1. 在各 `stages/*.py` 的 `run()` 中接入 LLM / 检索 / 数据 API，密钥经环境变量注入。  
-2. 用状态机或工作流引擎（如 LangGraph、Temporal）替换纯串行，支持**回溯与人在环路审批**。  
-3. 将「代码生成与执行」独立为沙箱服务：白名单依赖、超时、受限网络。
+## Roadmap
 
----
+1. Adapter layer for models and APIs (secrets via environment variables).
+2. Workflow engine with human-in-the-loop checkpoints and rollback.
+3. Dedicated execution service: allowlisted imports, timeouts, restricted networking.
 
 ## License
 
-MIT — 见 [`LICENSE`](./LICENSE)。
+MIT — see [LICENSE](./LICENSE).

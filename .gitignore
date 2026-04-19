@@ -13,6 +13,10 @@ venv/
 # Local experiment outputs (regenerate with: python3 run_demo.py)
 runs/
 
+# Maintainer-only notes (keep locally; not published on GitHub)
+核心需求v1.md
+首次上传GitHub指南.md
+
 # OS / editor
 .DS_Store
 .idea/
