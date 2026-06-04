@@ -166,13 +166,6 @@ Replace each `framework/stages/*.py` `run()` function with real integrations:
 4. Structured citation and source audit module.
 5. Word/PDF export for final research delivery.
 
-## Resume Summary
-
-> Built DataLoom, a safe-by-default six-stage research automation framework for
-> macro and quantitative workflows, generating PRD artifacts, research outlines,
-> analysis plans, execution stubs, draft reports, and packaged delivery bundles
-> with reproducible run-level artifact management.
-
 ## Repository Scope
 
 This repository is a runnable framework skeleton. It contains no private data,
@@ -330,12 +323,6 @@ python3 run_demo.py --topic "demo" --run-id demo-run-1 --auto
 3. 带 allowlist、超时和网络限制的沙箱执行服务。
 4. 结构化引用和来源审计模块。
 5. 面向最终研究交付的 Word/PDF 导出。
-
-## 简历表述
-
-> 开发 DataLoom，一套默认安全的六阶段研究自动化框架，面向宏观和量化研究流程，能够
-> 生成 PRD、研究大纲、分析计划、执行占位、报告草稿和交付包，并通过 run 级产物管理
-> 实现过程可追溯和结果可复现。
 
 ## 仓库范围
 
