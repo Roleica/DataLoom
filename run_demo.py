@@ -23,7 +23,10 @@ def main() -> int:
     args = p.parse_args()
 
     pipeline = ResearchPipeline(workspace=_ROOT)
-    ctx = pipeline.run(args.topic, auto_confirm=args.auto, run_id=args.run_id)
+    try:
+        ctx = pipeline.run(args.topic, auto_confirm=args.auto, run_id=args.run_id)
+    except ValueError as exc:
+        p.error(str(exc))
     print(f"Done. Artifacts: {ctx.run_dir}")
     return 0
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import zipfile
 
 from framework.context import RunContext
@@ -24,10 +25,26 @@ def run(ctx: RunContext) -> None:
         encoding="utf-8",
     )
 
+    manifest_path = ctx.run_dir / "manifest.json"
+    manifest = {
+        "run_id": ctx.run_id,
+        "topic": ctx.topic,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "artifacts": [
+            str(path.relative_to(ctx.run_dir))
+            for path in sorted(ctx.run_dir.rglob("*"))
+            if path.is_file() and path.name != "manifest.json"
+        ],
+    }
+    ctx.write_json("manifest.json", manifest)
+
     zip_path = ctx.run_dir / f"{ctx.run_id}_bundle.zip"
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for p in sorted(ctx.run_dir.rglob("*")):
             if p.is_file() and p != zip_path:
                 zf.write(p, arcname=str(p.relative_to(ctx.run_dir)))
-    ctx.data["delivery"] = {"zip": str(zip_path.name)}
-    ctx.write_json("06_delivery.json", {"readme": str(master.name), "zip": zip_path.name})
+    ctx.data["delivery"] = {"manifest": manifest_path.name, "zip": zip_path.name}
+    ctx.write_json(
+        "06_delivery.json",
+        {"manifest": manifest_path.name, "readme": master.name, "zip": zip_path.name},
+    )
